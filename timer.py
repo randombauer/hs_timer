@@ -40,14 +40,9 @@ class Timer:
             print ("Resumed")
             self.IsPaused = False
 
-    def StopTimer(self, StopButton):
-        gobject.source_remove(self.RunTimer)
-        StopButton.set_label("Reset")
-    #FIXME
-    #    if StopButton.clicked():
-    #        self.OldTime = time.time()
-    #        StopButton.set_label("Stop")
-
+    def StopTimer(self, Run):
+        gobject.source_remove(Run)
+		
     def main(self):
         self.RunTimer
 

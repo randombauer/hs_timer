@@ -13,7 +13,7 @@ class Window:
         print ("Destroy event!")
         gtk.main_quit()
 
-    def __init__(self):
+    def __init__(self, StartTime):
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.set_title("Hearthstone Timer!")
         window.set_size_request(400, 600)
@@ -29,7 +29,8 @@ class Window:
         self.StartButton.connect("clicked", self.Start) # Start
 
         self.Run = None
-        self.Ret = None
+        self.Up = None
+		self.StartTime = StartTime
         self.TimeBar = gtk.Statusbar()
         self.TimeBar.push(1, "0.00")
 
@@ -60,18 +61,21 @@ class Window:
         self.main_timer.StartTimer()
         self.Run = gobject.timeout_add(10, self.Update)
 
-
     def Update(self):
-        self.Ret = self.main_timer.UpdateTimer()
-        self.TimeBar.push(1, "%s" % self.Ret)
+        self.Up = self.main_timer.UpdateTimer()
+        self.TimeBar.push(1, "%s" % self.Up)
         return True
 
     def Pause(self, PauseButton):
         pass
 
     def Stop(self, StopButton):
-        pass
-
+        if StopButton.get_label() == "Stop":
+			self.main_timer.StopTimer(self.Run)
+			StopButton.set_label("Reset")
+		else:
+			self.TimeBar.push(1, "%s" % self.StartTime)
+			StopButton.set_label("Stop")
 
     def main(self):
         self.Run
