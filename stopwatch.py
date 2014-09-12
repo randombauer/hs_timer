@@ -7,7 +7,7 @@ import time
 import datetime
 import os
 
-class Timer:
+class Stopwatch:
 
     def destroy(self, widget, data=None):
         print ("Destroy event!")
@@ -15,7 +15,7 @@ class Timer:
 
     def __init__(self):
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        window.set_title("Hearthstone Timer!")
+        window.set_title("Hearthstone Stopwatch!")
         window.set_size_request(400, 600)
         self.window = window
         self.counter = 1
@@ -26,14 +26,14 @@ class Timer:
         self.StopButton = gtk.Button("Stop")
         self.PauseButton = gtk.Button("Pause")
         self.StartButton = gtk.Button("Start")
-        self.StopButton.connect("clicked", self.StopTimer) # Stop
-        self.PauseButton.connect("clicked", self.PauseTimer) # Pause
-        self.StartButton.connect("clicked", self.StartTimer) # Start
+        self.StopButton.connect("clicked", self.StopStopwatch) # Stop
+        self.PauseButton.connect("clicked", self.PauseStopwatch) # Pause
+        self.StartButton.connect("clicked", self.StartStopwatch) # Start
 
-        self.RunTimer = None
+        self.RunStopwatch = None
         self.NewTime = None
         self.TimeBar = gtk.Statusbar()
-        self.TimeBar.push(1, "1.30")
+        self.TimeBar.push(1, "0.00")
 
         hbox = gtk.HBox()
         PauseBox = gtk.VBox()
@@ -58,32 +58,31 @@ class Timer:
 
         self.window.show_all()
 
-    def UpdateTimer(self):
+    def UpdateStopwatch(self):
         self.NewTime = time.time() - self.OldTime
-        self.NewTime = 90 - self.NewTime
         self.ActualTime = str(datetime.timedelta(seconds=self.NewTime))
-        self.TimeBar.push(1, "%s" % self.ActualTime.)
+        self.TimeBar.push(1, "%s" % self.ActualTime)
         return True
 
-    def StartTimer(self, StartButton):
+    def StartStopwatch(self, StartButton):
         self.OldTime = time.time()
-        self.RunTimer = gobject.timeout_add(1000, timer.UpdateTimer)
+        self.RunStopwatch = gobject.timeout_add(10, stopwatch.UpdateStopwatch)
 
-    def PauseTimer(self, PauseButton):
+    def PauseStopwatch(self, PauseButton):
         if self.IsPaused == False:
             PauseButton.set_label("Resume")
-            gobject.source_remove(self.RunTimer)
+            gobject.source_remove(self.RunStopwatch)
             print ("Stopped")
             self.IsPaused = True
         else:
             PauseButton.set_label("Pause")
             self.OldTime = time.time() - self.NewTime
-            self.RunTimer = gobject.timeout_add(1000, timer.UpdateTimer)
+            self.RunStopwatch = gobject.timeout_add(10, stopwatch.UpdateStopwatch)
             print ("Resumed")
             self.IsPaused = False
 
-    def StopTimer(self, StopButton):
-        gobject.source_remove(self.RunTimer)
+    def StopStopwatch(self, StopButton):
+        gobject.source_remove(self.RunStopwatch)
         StopButton.set_label("Reset")
     #FIXME
     #    if StopButton.clicked():
@@ -91,10 +90,10 @@ class Timer:
     #        StopButton.set_label("Stop")
 
     def main(self):
-        self.RunTimer
+        self.RunStopwatch
         gtk.main()
 
 
 if __name__ == "__main__":
-    timer = Timer()
-    timer.main()
+    stopwatch = Stopwatch()
+    stopwatch.main()
