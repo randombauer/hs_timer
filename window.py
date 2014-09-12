@@ -67,6 +67,11 @@ class Window:
         return True
 
     def Pause(self, PauseButton):
+		if PauseButton.get_label() == "Pause":
+			PauseButton.set_label("Resume")
+		else:
+			PauseButton.set_label("Pause")
+			self.Run = gobject.timeout_add(1000, self.Update)
         pass
 
     def Stop(self, StopButton):

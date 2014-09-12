@@ -27,17 +27,12 @@ class Timer:
     def StartTimer(self):
         self.OldTime = time.time()
 
-    def PauseTimer(self, PauseButton):
+    def PauseTimer(self, Run):
         if self.IsPaused == False:
-            PauseButton.set_label("Resume")
-            gobject.source_remove(self.RunTimer)
-            print ("Stopped")
+            gobject.source_remove(Run)
             self.IsPaused = True
         else:
-            PauseButton.set_label("Pause")
             self.OldTime = time.time() - self.NewTime
-            self.RunTimer = gobject.timeout_add(1000, timer.UpdateTimer)
-            print ("Resumed")
             self.IsPaused = False
 
     def StopTimer(self, Run):
