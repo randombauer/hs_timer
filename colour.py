@@ -5,10 +5,10 @@ import gtk
 class Colour:
 
     def __init__(self):
-        self.x = 1234
-        self.y = 394
-        self.yellow = (255, 255, 46)
-        self.green = (89, 252, 45)
+        self.x = 1211
+        self.y = 426
+        self.yellow = (222, 211, 31)
+        self.green = (62, 211, 33)
 
     def get_pixel_colour(self):
         buff = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
@@ -16,14 +16,20 @@ class Colour:
         return tuple(buff.get_pixels_array().tolist()[0][0])
  
     def check_colour(self):
-        colour = get_pixel_colour(x, y)
-        if colour == yellow or colour == green:
+        colour = self.get_pixel_colour()
+        if colour == self.yellow or colour == self.green:
             return 1
         else:
             return 0
 
+    def test(self):
+        if self.check_colour():
+            print "Success"
+        else:
+            print "Eher nicht nein"
+
     def main(self):
-        print self.get_pixel_colour()
+        self.test()
 
 if __name__ == "__main__":
     colour = Colour()
