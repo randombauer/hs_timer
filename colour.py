@@ -1,16 +1,30 @@
-import PIL.ImageGrab
+#!/usr/bin/python
 
-x = 1234
-y = 394
-yellow = (255, 255, 46)
-green = (89, 252, 45)
+import gtk
 
-def get_pixel_colour(i_x, i_y):
-        return PIL.ImageGrab.grab().load()[i_x, i_y]
+class Colour:
 
-def check_colour():
+    def __init__(self):
+        self.x = 1234
+        self.y = 394
+        self.yellow = (255, 255, 46)
+        self.green = (89, 252, 45)
+
+    def get_pixel_colour(self):
+        buff = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
+        buff.get_from_drawable(gtk.gdk.get_default_root_window(), gtk.gdk.colormap_get_system(), self.x, self.y, 0, 0, 1, 1)
+        return tuple(buff.get_pixels_array().tolist()[0][0])
+ 
+    def check_colour(self):
         colour = get_pixel_colour(x, y)
         if colour == yellow or colour == green:
-                return 1
+            return 1
         else:
-                return 0
+            return 0
+
+    def main(self):
+        print self.get_pixel_colour()
+
+if __name__ == "__main__":
+    colour = Colour()
+    colour.main()

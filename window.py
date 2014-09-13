@@ -5,6 +5,7 @@ import pygtk
 import gtk, gobject
 import os
 from timer import *
+from colour import *
 
 
 class Window:
@@ -17,7 +18,9 @@ class Window:
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.set_title("Hearthstone Timer!")
         window.set_size_request(400, 600)
-        self.main_timer = Timer()
+
+        self.own_timer = Timer()
+        self.colour_checker = Colour()
         self.window = window
         self.counter = 1
 
@@ -58,25 +61,25 @@ class Window:
         self.window.show_all()
 
     def Start_with_button(self, StartButton):
-        self.main_timer.StartTimer()
+        self.own_timer.StartTimer()
         self.Run = gobject.timeout_add(10, self.Update)
 
     def Update(self):
-        self.Up = self.main_timer.UpdateTimer()
+        self.Up = self.own_timer.UpdateTimer()
         self.TimeBar.push(1, "%s" % self.Up)
         return True
 
     def Pause_with_button(self, PauseButton):
         if PauseButton.get_label() == "Pause":
             PauseButton.set_label("Resume")
-            self.main_timer.PauseTimer(self.Run)
+            self.own_timer.PauseTimer(self.Run)
         else:
             PauseButton.set_label("Pause")
             self.Run = gobject.timeout_add(10, self.Update)
 
     def Stop_with_button(self, StopButton):
         if StopButton.get_label() == "Stop":
-            self.main_timer.StopTimer(self.Run)
+            self.own_timer.StopTimer(self.Run)
             StopButton.set_label("Reset")
         else:
             self.TimeBar.push(1, "%s" % self.StartTime)
