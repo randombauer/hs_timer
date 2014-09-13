@@ -57,7 +57,7 @@ class Window:
 
         self.window.show_all()
 
-    def Start(self, StartButton):
+    def Start_with_button(self, StartButton):
         self.main_timer.StartTimer()
         self.Run = gobject.timeout_add(10, self.Update)
 
@@ -66,7 +66,7 @@ class Window:
         self.TimeBar.push(1, "%s" % self.Up)
         return True
 
-    def Pause(self, PauseButton):
+    def Pause_with_button(self, PauseButton):
         if PauseButton.get_label() == "Pause":
             PauseButton.set_label("Resume")
             self.main_timer.PauseTimer(self.Run)
@@ -74,7 +74,7 @@ class Window:
             PauseButton.set_label("Pause")
             self.Run = gobject.timeout_add(10, self.Update)
 
-    def Stop(self, StopButton):
+    def Stop_with_button(self, StopButton):
         if StopButton.get_label() == "Stop":
             self.main_timer.StopTimer(self.Run)
             StopButton.set_label("Reset")
