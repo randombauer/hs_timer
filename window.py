@@ -33,6 +33,7 @@ class Window:
 
         self.Run = None
         self.Up = None
+        self.Turn_status = None
         self.StartTime = str(datetime.timedelta(seconds=StartTime))
         self.TimeBar = gtk.Statusbar()
         self.TimeBar.push(1, "%s" % self.StartTime)
@@ -61,9 +62,17 @@ class Window:
         self.window.show_all()
 
     def Update(self):
-        self.Up = self.own_timer.UpdateTimer()
-        self.TimeBar.push(1, "%s" % self.Up)
-        return True
+        self.check_turn_status()
+        if self.Turn_status == True:
+            self.Up = self.own_timer.UpdateTimer()
+            self.TimeBar.push(1, "%s" % self.Up)
+            return True
+        else:
+            self.TimeBar.push(1, "%s" % self.StartTime)
+            return True
+
+    def check_turn_status(self):
+        self.Turn_status = self.colour_checker.check_colour()
 
     def Start(self):
         self.own_timer.StartTimer()

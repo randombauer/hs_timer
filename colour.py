@@ -7,8 +7,11 @@ class Colour:
     def __init__(self):
         self.x = 1211
         self.y = 426
-        self.yellow = (222, 211, 31)
-        self.green = (62, 211, 33)
+        # Need to find a good way to set these values as they have a habit of
+        # changing between games and sometimes even between turns (probably 
+        # caused by different shadows on the button)
+        self.yellow = (159, 95, 4)
+        self.green = (63, 131, 6)
 
     def get_pixel_colour(self):
         buff = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
@@ -30,6 +33,7 @@ class Colour:
 
     def main(self):
         self.test()
+#        print self.get_pixel_colour()
 
 if __name__ == "__main__":
     colour = Colour()
