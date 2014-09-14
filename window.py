@@ -27,9 +27,9 @@ class Window:
         self.StopButton = gtk.Button("Stop")
         self.PauseButton = gtk.Button("Pause")
         self.StartButton = gtk.Button("Start")
-        self.StopButton.connect("clicked", self.Stop) # Stop
-        self.PauseButton.connect("clicked", self.Pause) # Pause
-        self.StartButton.connect("clicked", self.Start) # Start
+        self.StopButton.connect("clicked", self.Stop_with_button) # Stop
+        self.PauseButton.connect("clicked", self.Pause_with_button) # Pause
+        self.StartButton.connect("clicked", self.Start_with_button) # Start
 
         self.Run = None
         self.Up = None
