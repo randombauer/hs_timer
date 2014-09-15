@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from PIL import *
 import gtk
 import Image
 import sys
@@ -18,8 +19,8 @@ class Colour:
 
     def get_pixel_colour(self):
         if sys.argv[1] == "test":
-            print "=== Entering Testmode ==="
-            for img in os.listdir('img/'):
+            print "=== Fixed RGB Ranges - Test Started ==="
+            for img in sorted(os.listdir('img/')):
                 im = Image.open("img/"+img)
                 pix = im.convert("RGB")
                 r,g,b = pix.getpixel((1046, 336))
@@ -31,7 +32,11 @@ class Colour:
                 else:
                     print ("%s: (%s, %s, %s) ==> Grey or different Color" % (img, r, g, b))
 
-            print "=== Test finished ==="
+            print "=== Fixed RGB Ranges - Test finished ==="
+            print "========================================"
+            print "=== Average RGB Value - Test Started ==="
+            self.average_image_color()
+            print "=== Average RGB Value - Test finished ==="
             sys.exit(0)
 
         else:
@@ -45,6 +50,28 @@ class Colour:
             return 1
         else:
             return 0
+
+    def average_image_color(self):
+        for img in sorted(os.listdir('img/')):
+            im = Image.open("img/"+img)
+            box = (975,296,1090,355)
+            crop = im.crop(box)
+            h = crop.histogram()
+            #crop.show()
+
+        # split into red, green, blue
+            r = h[0:256]
+            g = h[256:256*2]
+            b = h[256*2: 256*3]
+
+        # perform the weighted average of each channel:
+        # the *index* is the channel value, and the *value* is its weight
+            print (
+                sum( i*w for i, w in enumerate(r) ) / sum(r),
+                sum( i*w for i, w in enumerate(g) ) / sum(g),
+                sum( i*w for i, w in enumerate(b) ) / sum(b)
+            )
+        return 1
 
     def test(self):
         if self.check_colour():
