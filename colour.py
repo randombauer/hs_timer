@@ -14,8 +14,10 @@ class Colour:
         # Need to find a good way to set these values as they have a habit of
         # changing between games and sometimes even between turns (probably
         # caused by different shadows on the button)
-        self.yellow = (159, 95, 4)
-        self.green = (63, 131, 6)
+        #self.yellow = (159, 95, 4)
+        self.yellow = (175, 175, 11)   ### TEST YELLOW ###
+        #self.green = (63, 131, 6)
+        self.green = (109, 175, 48)  ### TEST GREEN ###
 
     def get_pixel_colour(self):
         if len(sys.argv)>=2:
