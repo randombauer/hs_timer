@@ -13,7 +13,7 @@ class Window:
     def destroy(self, widget, data=None):
         print ("Destroy event!")
         gtk.main_quit()
-        
+
     def __init__(self, StartTime):
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.set_title("Hearthstone Timer!")
@@ -24,6 +24,9 @@ class Window:
         self.window = window
         self.counter = 1
 
+        # Init buttons
+        # Buttons are not really needed for the timer but at the moment they
+        # allow for easy testing and control
         self.StopButton = gtk.Button("Stop")
         self.PauseButton = gtk.Button("Pause")
         self.StartButton = gtk.Button("Start")

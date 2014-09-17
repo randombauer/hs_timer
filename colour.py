@@ -18,7 +18,7 @@ class Colour:
         self.green = (63, 131, 6)
 
     def get_pixel_colour(self):
-        if sys.argv[1] == 'test':
+        if len(sys.argv)>=2:
             print "=== Fixed RGB Ranges - Test Started ==="
             for img in sorted(os.listdir('img/')):
                 im = Image.open("img/"+img)
@@ -39,7 +39,7 @@ class Colour:
             print "=== Average RGB Value - Test finished ==="
             sys.exit(0)
 
-        elif len(sys.argv) == 1:
+        else:
             buff = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 1, 1)
             buff.get_from_drawable(gtk.gdk.get_default_root_window(), gtk.gdk.colormap_get_system(), self.x, self.y, 0, 0, 1, 1)
             return tuple(buff.get_pixels_array().tolist()[0][0])
