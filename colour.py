@@ -49,9 +49,9 @@ class Colour:
     def check_colour(self):
         colour = self.get_pixel_colour()
         if colour == self.yellow or colour == self.green:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     def average_image_color(self):
         for img in sorted(os.listdir('img/')):
