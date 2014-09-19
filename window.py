@@ -27,11 +27,7 @@ class Window:
         # Init buttons
         # Buttons are not really needed for the timer but at the moment they
         # allow for easy testing and control
-        self.StopButton = gtk.Button("Stop")
-        self.PauseButton = gtk.Button("Pause")
         self.StartButton = gtk.Button("Start")
-        self.StopButton.connect("clicked", self.Stop_with_button) # Stop
-        self.PauseButton.connect("clicked", self.Pause_with_button) # Pause
         self.StartButton.connect("clicked", self.Start_with_button) # Start
 
         self.Run = None
@@ -43,20 +39,11 @@ class Window:
         self.TimeBar.push(1, "%s" % self.StartTime)
 
         hbox = gtk.HBox()
-        PauseBox = gtk.VBox()
         StartBox = gtk.VBox()
-        StopBox = gtk.VBox()
-        StopBox.pack_end(self.StopButton, expand=True, fill=False, padding=20)
-        PauseBox.pack_end(self.PauseButton, expand=True, fill=False, padding=20)
         StartBox.pack_end(self.StartButton, expand=True, fill=False, padding=0)
-        hbox.pack_end(StopBox, expand=True, fill=False, padding=0)
-        hbox.pack_end(PauseBox, expand=True, fill=False, padding=0)
         hbox.pack_end(StartBox, expand=True, fill=False, padding=0)
 
         vbox = gtk.VBox()
-        TimeBox = []
-        for b in range(0, len(TimeBox)):
-            vbox.pack_start(TimeBox[b], expand=True, fill=True, padding=0)
         vbox.pack_end(hbox, expand=False, fill=True, padding=0)
         vbox.pack_end(self.TimeBar, expand=True, fill=True, padding=20)
 
@@ -100,22 +87,6 @@ class Window:
     def Start_with_button(self, StartButton):
         self.own_timer.StartTimer()
         self.Run = gobject.timeout_add(10, self.Update)
-
-    def Pause_with_button(self, PauseButton):
-        if PauseButton.get_label() == "Pause":
-            PauseButton.set_label("Resume")
-            self.own_timer.PauseTimer(self.Run)
-        else:
-            PauseButton.set_label("Pause")
-            self.Run = gobject.timeout_add(10, self.Update)
-
-    def Stop_with_button(self, StopButton):
-        if StopButton.get_label() == "Stop":
-            self.own_timer.StopTimer(self.Run)
-            StopButton.set_label("Reset")
-        else:
-            self.TimeBar.push(1, "%s" % self.StartTime)
-            StopButton.set_label("Stop")
 
     def main(self):
         self.Run
