@@ -94,5 +94,5 @@ class Window:
 
 
 if __name__ == "__main__":
-    window = Window(90)
+    window = Window(75)
     window.main()

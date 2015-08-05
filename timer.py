@@ -9,6 +9,8 @@ import os
 
 class Timer:
 
+    roundTime = 75
+
     def destroy(self, widget, data=None):
         print ("Destroy event!")
         gtk.main_quit()
@@ -20,7 +22,7 @@ class Timer:
 
     def UpdateTimer(self):
         self.NewTime = time.time() - self.OldTime
-        self.NewTime = 90 - self.NewTime
+        self.NewTime = roundTime - self.NewTime
         self.ActualTime = str(datetime.timedelta(seconds=self.NewTime))
         return self.ActualTime
 
@@ -44,7 +46,7 @@ class Timer:
 class CountDownTimer(Timer):
 
     def UpdateTimer(self):
-        self.NewTime = 90 - (time.time() - self.OldTime)
+        self.NewTime = roundTime - (time.time() - self.OldTime)
         self.ActualTime = str(datetime.timedelta(seconds=self.NewTime))
         self.TimeBar.push(1, "%s" % self.ActualTime)
         return True
