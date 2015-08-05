@@ -1,0 +1,20 @@
+Things TODO in the near future:
+
+       - Implement the gtk screen grab properly from
+         http://faq.pygtk.org/index.py?req=show&file=faq23.039.htp
+	 or switch to PIL (win only apperently)
+         http://effbot.org/imagingbook/imagegrab.htm
+
+       - Implement a way to select a screen area and save that to config to
+         avoid relying on hard coded pixel values
+
+       - Find a good median for button colours/a way to dynamically determine
+         them instead of using hardocded stuff
+
+       - Restructure project
+
+       - Display times next to button in game instead of in window (low prio)
+
+       - Be easily able to recover from timer failures due to errornous colour
+         detection, broken turn button in game etc.
+
